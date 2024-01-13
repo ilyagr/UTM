@@ -1,0 +1,2 @@
+No appdmg, but set -e
+bash and dash

@@ -115,8 +115,7 @@ if [ "$MODE" == "app-store" ]; then
 	cp "$SIGNED/UTM.pkg" "$OUTPUT/UTM.pkg"
 else
 	rm -f "$OUTPUT/UTM.dmg"
-	command -v appdmg >/dev/null 2>&1
-	if [ $? -eq 0 ]; then
+	if command -v appdmg; then
 		RESOURCES="/tmp/resources.$$"
 		cp -r "$BASEDIR/resources" "$RESOURCES"
 		sed -i '' "s/\/tmp\/signed\/UTM.app/\/tmp\/signed.$$\/UTM.app/g" "$RESOURCES/appdmg.json"
@@ -127,4 +126,4 @@ else
 		hdiutil create -fs HFS+ -srcfolder "$SIGNED/UTM.app" -volname "UTM" "$OUTPUT/UTM.dmg"
 	fi
 fi
-rm -rf "$SIGNED"
+# rm -rf "$SIGNED"

@@ -99,7 +99,8 @@ struct VMConfigDriveDetailsView: View {
             
             if let imageUrl = config.imageURL {
                 let fileSize = data.computeSize(for: imageUrl)
-                DefaultTextField("Size", text: .constant(ByteCountFormatter.string(fromByteCount: fileSize, countStyle: .binary))).disabled(true)
+                DefaultTextField("Image Size", text: .constant(ByteCountFormatter.string(fromByteCount: fileSize, countStyle: .binary))).disabled(true)
+                // DefaultTextField("Virtual Size", text: .constant(ByteCountFormatter.string(fromByteCount: Int64(config.sizeMib) * bytesInMib, countStyle: .binary))).disabled(true)  // Always 0
             } else if config.sizeMib > 0 {
                 DefaultTextField("Size", text: .constant(ByteCountFormatter.string(fromByteCount: Int64(config.sizeMib) * bytesInMib, countStyle: .binary))).disabled(true)
             }
@@ -193,10 +194,11 @@ private struct ResizePopoverView: View {
         Int((currentSize! + bytesInMib - 1) / bytesInMib)
     }
     
+    // QEMU uses "virtual size" and "disk size"
     var body: some View {
         VStack {
             if let sizeString = sizeString {
-                Text("Minimum size: \(sizeString)")
+                Text("Current capacity (minimum): \(sizeString)")
                 Form {
                     SizeTextField($proposedSizeMib, minSizeMib: minSizeMib)
                     Button("Resize") {

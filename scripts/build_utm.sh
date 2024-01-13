@@ -110,7 +110,7 @@ ios | ios-tci )
     ;;
 esac
 find "$BUILT_PATH" -type d -path '*/Frameworks/*.framework' -exec codesign --force --sign - --timestamp=none \{\} \;
-if [ "$PLATFORM" == "macos" ]; then
+if [ "$PLATFORM" = "macos" ]; then
     # always build with vm entitlements, package_mac.sh can strip it later
     # this way we can import into Xcode and re-sign from there
     UTM_ENTITLEMENTS="/tmp/utm.$$.entitlements"

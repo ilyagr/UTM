@@ -30,7 +30,7 @@ struct SizeTextField: View {
     
     var body: some View {
         HStack {
-            NumberTextField("Size", number: Binding<Int>(get: {
+            NumberTextField("Drive Capacity", number: Binding<Int>(get: {
                 convertToDisplay(fromSizeMib: sizeMib)
             }, set: {
                 sizeMib = convertToMib(fromSize: $0)
